@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Soundscape: Clausthal in Four Seasons</title>
+    
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* Bookman Old Style family */
+        @font-face {
+            font-family: 'BookmanOldStyle';
+            src: url('/fonts/bookos-regular.woff2') format('woff2'),
+                url('/fonts/bookos-regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BookmanOldStyle';
+            src: url('/fonts/bookos-italic.woff2') format('woff2'),
+                url('/fonts/bookos-italic.woff') format('woff');
+            font-weight: 400;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BookmanOldStyle';
+            src: url('/fonts/bookos-bold.woff2') format('woff2'),
+                url('/fonts/bookos-bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'BookmanOldStyle';
+            src: url('/fonts/bookos-bolditalic.woff2') format('woff2'),
+                url('/fonts/bookos-bolditalic.woff') format('woff');
+            font-weight: 700;
+            font-style: italic;
+            font-display: swap;
+        }
+
+        /* CountryBluePrint */
+        @font-face{
+            font-family:'CountryBluePrint';
+            src:url('fonts/countryblueprint.woff2') format('woff2'),
+                url('fonts/countryblueprint.woff') format('woff');
+            font-weight:400;
+            font-style:normal;
+            font-display:swap;
+        }
+    </style>
+    
+    <style>        
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: all 1.5s ease-in-out;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        /* Theme-specific background images */
+        .mobile-background {
+            background-size: 100% 100%;
+        }
+
+        .theme-summer {
+            background-image: url('img/backgrounds/summer.jpg');
+        }
+        
+        .theme-autumn {
+            background-image: url('img/backgrounds/autumn.jpg');
+        }
+        
+        .theme-winter {
+            background-image: url('img/backgrounds/winter.jpg');
+        }
+        
+        .theme-spring {
+            background-image: url('img/backgrounds/spring.jpg');
+        }
+
+        .desktop-background {
+            background-size: cover !important;
+            backdrop-filter: blur(2000px);
+        }
+        
+        /* Main Container */
+        .main-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: all 1.5s ease-in-out;
+        }
+        
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            transition: all 1.5s ease-in-out;
+        }
+
+        .gray-background {
+            background: linear-gradient(
+                to bottom,
+                transparent 12%,          /* fully transparent until 20% */
+                rgba(191, 191, 191, 0.3) 12%,      /* start gray exactly at 20% */
+                rgba(191, 191, 191, 0.3) 95%,      /* keep gray until 95% */
+                transparent 95%           /* fade out at bottom 5% */
+            );
+            height: 100%;
+        }
+
+        .main-title,
+        .subtitle{
+            font-family:'CountryBluePrint', cursive;
+            font-weight:400;          /* was 800 – change to 400 */
+            font-synthesis: none;     /* prevent fake bold/italic */
+        }
+        
+        .main-title {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 1.5s ease-in-out;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+        }
+        
+        /* Theme-specific title colors */
+        .theme-summer .main-title {
+            color: #B22222; /* FireBrick */
+        }
+        
+        .theme-autumn .main-title {
+            color: #A0522D; /* Sienna */
+        }
+        
+        .theme-winter .main-title {
+            color: #00008B; /* DarkBlue */
+        }
+        
+        .theme-spring .main-title {
+            color: #228B22; /* ForestGreen */
+        }
+        
+        /* Season Selection Buttons */
+        .season-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 0 2rem;
+        }
+        
+        .season-btn {
+            font-family: 'BookmanOldStyle', serif;
+            font-weight: 700;
+            font-style: italic;
+            padding: 1rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .season-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Season button colors - always show season colors */
+        .season-btn.summer-btn {
+            color: #B22222; /* FireBrick */
+        }
+        
+        .season-btn.autumn-btn {
+            color: #A0522D; /* Sienna */
+        }
+        
+        .season-btn.winter-btn {
+            color: #00008B; /* DarkBlue */
+        }
+        
+        .season-btn.spring-btn {
+            color: #228B22; /* ForestGreen */
+        }
+        
+        /* Theme-specific season button background styles */
+        .theme-summer .season-btn.summer-btn {
+            background-color: #f68e5666; /* PeachPuff */
+        }
+        
+        .theme-autumn .season-btn.autumn-btn {
+            background-color: #f5deb2b3; /* Wheat */
+        }
+        
+        .theme-winter .season-btn.winter-btn {
+            background-color: #add8e6b3; /* LightBlue */
+        }
+        
+        .theme-spring .season-btn.spring-btn {
+            background-color: #90ee90b3; /* LightGreen */
+        }
+        
+        /* Non-active season buttons have white background */
+        .theme-summer .season-btn:not(.summer-btn),
+        .theme-autumn .season-btn:not(.autumn-btn),
+        .theme-winter .season-btn:not(.winter-btn),
+        .theme-spring .season-btn:not(.spring-btn) {
+            background-color: unset;
+        }
+        
+        /* Player Controls Section */
+        .player-section {
+            border-radius: 20px;
+            padding: 2rem;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #545454, #333);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        .progress-handle {
+            position: absolute;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            background: #333;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .progress-handle:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+        
+        /* Control Buttons */
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .control-btn {
+            width: 100px;
+            height: 100px;
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .control-btn img {
+            width: 80px;
+            height: 80px;
+            transition: all 0.3s ease, opacity 0.3s ease;
+        }
+        
+        /* Time Display */
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* ========================================
+           RESPONSIVE MEDIA QUERIES
+           ======================================== */
+          /* Extra Small Devices (Phones) - Portrait */
+          @media (max-width: 429px) {
+            body {
+                align-items: unset;
+            }
+            .main-container {
+                gap: unset;
+                padding: 0 1rem;
+                display: flex;
+                justify-content: space-evenly;
+            }
+            .main-title {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .gray-background {
+            background: linear-gradient(
+                to bottom,
+                transparent 10%,          /* fully transparent until 20% */
+                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
+                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
+                transparent 72%           /* fade out at bottom 5% */
+            );
+            height: 100%;
+            }
+            .season-btn {   
+                font-size: 1.1rem;
+            }
+            .season-buttons {
+                gap: 1rem;
+                padding: 0 3rem;
+            }
+            .control-btn {
+                width: 60px;
+                height: 60px;
+            }
+            .control-btn img {
+                width: 50px;
+                height: 50px;
+            }
+            .progress-container {
+                margin-bottom: 2.5rem;
+            }
+            .player-section {
+                padding: 2rem 2rem 0 2rem;
+            }
+            .time-display {
+                margin-bottom: 0.5rem;
+            }
+            .progress-bar {
+                height: 4px;
+            }
+            .progress-handle {
+                height: 8px;
+                width: 8px;
+            }
+            /* Classes to make responsive:
+               .main-container - padding, gap, max-width
+               .main-title - font-size, line-height
+               .subtitle - font-size
+               .season-btn - padding, font-size
+               .season-buttons - gap, padding
+               .control-buttons - gap
+               .control-btn - width, height
+               .play-btn - width, height
+               .control-btn img - width, height
+               .play-btn img - width, height
+               .player-section - padding
+               .progress-container - margin-bottom
+               .time-display - font-size, margin-bottom
+            */
+        }
+           
+
+        /* Small Devices (Phones) - Portrait */
+        @media (min-width: 430px) and (max-width: 575px){
+            body {
+                align-items: unset;
+            }
+            .main-container {
+                gap: 1.5rem;
+            }
+            .main-title {
+                font-size: 3.5rem;
+            }
+            .subtitle {
+                font-size: 1.8rem;
+            }
+            .gray-background {
+            background: linear-gradient(
+                to bottom,
+                transparent 10%,          /* fully transparent until 20% */
+                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
+                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
+                transparent 72%           /* fade out at bottom 5% */
+            );
+            height: 100%;
+            }
+            .season-btn {   
+                font-size: 1.8rem;
+            }
+            .season-buttons {
+                gap: 1rem;
+                padding: 0 3rem;
+            }
+            .control-btn {
+                width: 100px;
+                height: 100px;
+            }
+            .control-btn img {
+                width: 80px;
+                height: 80px;
+            }
+            .progress-container {
+                margin-bottom: 2.5rem;
+            }
+            .player-section {
+                padding: 2rem 2rem 0 2rem;
+            }
+            /* Classes to make responsive:
+               .main-container - padding, gap, max-width
+               .main-title - font-size, line-height
+               .subtitle - font-size
+               .season-btn - padding, font-size
+               .season-buttons - gap, padding
+               .control-buttons - gap
+               .control-btn - width, height
+               .play-btn - width, height
+               .control-btn img - width, height
+               .play-btn img - width, height
+               .player-section - padding
+               .progress-container - margin-bottom
+               .time-display - font-size, margin-bottom
+            */
+        }
+        
+        
+        /* Medium Devices (MiniTablets) */
+        @media (min-width: 576px) and (max-width: 819px) {  
+            body {
+                align-items: unset;
+            }
+            .main-container {
+                gap: 1.5rem;
+            }
+            .main-title {
+                font-size: 4rem;
+            }
+            .subtitle {
+                font-size: 2rem;
+            }
+            .gray-background {
+            background: linear-gradient(
+                to bottom,
+                transparent 10%,          /* fully transparent until 20% */
+                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
+                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
+                transparent 72%           /* fade out at bottom 5% */
+            );
+            height: 100%;
+            }
+            .season-btn {   
+                font-size: 2rem;
+            }
+            .season-buttons {
+                padding: 0 5rem;
+            }
+            .control-btn {
+                width: 100px;
+                height: 100px;
+            }
+            .control-btn img {
+                width: 80x;
+                height: 80px;
+            }
+            .progress-container {
+                margin-bottom: 2.5rem;
+            }
+            .player-section {
+                padding: 2rem 3rem 0 3rem;
+            }
+
+        }
+
+        /* Medium Devices (Tablets) */
+        @media (min-width: 820px) and (max-width: 991px) {
+            body {
+                align-items: unset;
+            }
+            .main-container {
+                gap: unset;
+            }
+            .main-title {
+                font-size: 5rem;
+            }
+            .subtitle {
+                font-size: 2.5rem;
+            }
+            .gray-background {
+            background: linear-gradient(
+                to bottom,
+                transparent 10%,          /* fully transparent until 20% */
+                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
+                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
+                transparent 72%           /* fade out at bottom 5% */
+            );
+            height: 100%;
+            }
+            .season-btn {   
+                font-size: 2.5rem;
+            }
+            .season-buttons {
+                gap: 2.5rem;
+                padding: 0 6rem;
+            }
+            .control-btn {
+                width: 150px;
+                height: 150px;
+            }
+            .control-btn img {
+                width: 120px;
+                height: 120px;
+            }
+            .progress-container {
+                margin-bottom: 2.5rem;
+            }
+            .player-section {
+                padding: 2rem 4rem 0 4rem;
+            }
+            /* Classes to make responsive:
+               .main-container - padding, gap, max-width
+               .main-title - font-size
+               .subtitle - font-size
+               .season-btn - padding, font-size
+               .season-buttons - gap
+               .control-buttons - gap
+               .control-btn - width, height
+               .play-btn - width, height
+               .player-section - padding
+            */
+        }
+        
+        /* Large Devices (Laptops/1080p) */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .main-container {
+                max-width: 480px;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            }
+            /* Classes to make responsive:
+               .main-container - padding, gap, max-width
+               .main-title - font-size
+               .subtitle - font-size
+               .season-btn - padding, font-size
+               .season-buttons - gap
+               .control-buttons - gap
+               .control-btn - width, height
+               .play-btn - width, height
+               .player-section - padding
+            */
+        }
+        
+        /* Extra Large Devices (4K/Desktops) */
+        @media (min-width: 1200px) {
+            .main-container {
+                max-width: 480px;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            }
+            /* Classes to make responsive:
+               .main-container - padding, gap, max-width
+               .main-title - font-size
+               .subtitle - font-size
+               .season-btn - padding, font-size
+               .season-buttons - gap
+               .control-buttons - gap
+               .control-btn - width, height
+               .play-btn - width, height
+               .player-section - padding
+            */
+        }
+        
+        
+        /* Fade Animation Classes */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .fade-out {
+            animation: fadeOut 1.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+
+        /* Safety tap overlay for browsers that block auto-play with sound */
+        .tap-to-start {
+            position: fixed; inset: 0; z-index: 5;
+            display: none; /* shown only if needed */
+            align-items: center; justify-content: center;
+            background: rgba(0,0,0,.6);
+            backdrop-filter: blur(2px);
+        }
+        .tap-card { background: #fff; padding: 18px 22px; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+        
+        /* Season info modal */
+        .season-info-modal {
+            position: fixed; inset: 0; z-index: 10;
+            display: none;
+            align-items: center; justify-content: center;
+            background: rgba(0,0,0,.7);
+            backdrop-filter: blur(3px);
+        }
+        .modal-card { 
+            background: #fff; 
+            padding: 24px 28px; 
+            border-radius: 16px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,.4);
+            max-width: 400px;
+            margin: 0 20px;
+            text-align: center;
+        }
+        .modal-title {
+            font-family: 'CountryBlueprint', cursive;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .modal-text {
+            font-family: 'Bookman Old Style', serif;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        .modal-btn {
+            background: #FF6347;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            font-family: 'Bookman Old Style', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .modal-btn:hover {
+            background: #FF4500;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="theme-summer desktop-background">
+    <div class="main-container mobile-background theme-summer">
+        <!-- Title Section -->
+        <div class="title-section fade-in">
+            <div class="gray-background">
+                <h1 class="main-title">Temporal<br>Soundscape:</h1>
+                <p class="subtitle">Clausthal in Four Seasons</p>
+            </div>
+        </div>
+        
+        <!-- Season Selection Buttons -->
+        <div class="season-buttons fade-in">
+            <button class="season-btn summer-btn active" data-season="summer">Summer</button>
+            <button class="season-btn autumn-btn" data-season="autumn">Autumn</button>
+            <button class="season-btn winter-btn" data-season="winter">Winter</button>
+            <button class="season-btn spring-btn" data-season="spring">Spring</button>
+        </div>
+        
+        <!-- Player Section -->
+        <div class="player-section fade-in">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="time-display">
+                    <span id="current-time">0:00</span>
+                    <span id="total-time">0:00</span>
+                </div>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                    <div class="progress-handle" id="progress-handle"></div>
+                </div>
+            </div>
+            
+            <!-- Control Buttons -->
+            <div class="control-buttons">
+                <button class="control-btn" id="prev-btn">
+                    <img src="img/buttons/summer_prev.png" alt="Previous" id="prev-icon">
+                </button>
+                <button class="control-btn" id="play-btn">
+                    <img src="img/buttons/summer_pause.png" alt="Play" id="play-icon">
+                </button>
+                <button class="control-btn" id="next-btn">
+                    <img src="img/buttons/summer_next.png" alt="Next" id="next-icon">
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hidden Audio Element -->
+    <audio id="audio-player" preload="auto"></audio>
+
+    <!-- Tap-to-start overlay (shown only if autoplay is blocked) -->
+    <div class="tap-to-start" id="tapGate">
+        <div class="tap-card">
+            <strong>Click to start audio</strong><br />
+            Your browser blocked auto‑play. Tap once to enable sound.
+        </div>
+    </div>
+    
+    <!-- Season info modal -->
+    <div class="season-info-modal" id="seasonInfoModal">
+        <div class="modal-card">
+            <div class="modal-title">Season Information</div>
+            <div class="modal-text">
+                At this stage, only the Summer season has an audio track.
+                The remaining seasons are visual mockups without sound.
+            </div>
+            <button class="modal-btn" id="modalOkBtn">Got it!</button>
+        </div>
+    </div>
+    
+    <script>
+        // Audio Player Class
+        class TemporalSoundscapePlayer {
+            constructor() {
+                this.currentSeason = 'summer';
+                this.seasons = ['summer', 'autumn', 'winter', 'spring'];
+                this.currentSeasonIndex = 0;
+                this.audio = document.getElementById('audio-player');
+                this.tapGate = document.getElementById('tapGate');
+                this.seasonInfoModal = document.getElementById('seasonInfoModal');
+                this.isPlaying = false;
+                this.isAutoProgressing = true;
+                this.hasShownSeasonInfo = false; // Boolean to track if modal was shown
+                
+                this.initializePlayer();
+                this.bindEvents();
+                this.loadSeason('summer');
+                this.startAutoPlay();
+            }
+            
+            // Initialize player settings
+            initializePlayer() {
+                this.audio.addEventListener('loadedmetadata', () => {
+                    this.updateTimeDisplay();
+                });
+                
+                this.audio.addEventListener('timeupdate', () => {
+                    this.updateProgress();
+                });
+                
+                this.audio.addEventListener('ended', () => {
+                    this.handleTrackEnd();
+                });
+                
+                this.audio.addEventListener('canplay', () => {
+                    if (this.isAutoProgressing) {
+                        this.play();
+                    }
+                });
+            }
+            
+            // Bind all event listeners
+            bindEvents() {
+                // Season buttons
+                document.querySelectorAll('.season-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const season = e.target.dataset.season;
+                        this.changeSeason(season);
+                    });
+                });
+                
+                // Player controls
+                document.getElementById('play-btn').addEventListener('click', () => {
+                    this.togglePlayPause();
+                });
+                
+                document.getElementById('prev-btn').addEventListener('click', () => {
+                    this.previousSeason();
+                });
+                
+                document.getElementById('next-btn').addEventListener('click', () => {
+                    this.nextSeason();
+                });
+                
+                
+                // Progress bar
+                document.getElementById('progress-bar').addEventListener('click', (e) => {
+                    this.seekTo(e);
+                });
+                
+                // Tap-to-start overlay
+                this.tapGate.addEventListener('click', () => {
+                    this.tapGate.style.display = 'none';
+                    this.play();
+                });
+                
+                // Season info modal
+                document.getElementById('modalOkBtn').addEventListener('click', () => {
+                    this.seasonInfoModal.style.display = 'none';
+                });
+                
+                // Keyboard controls
+                document.addEventListener('keydown', (e) => {
+                    switch(e.code) {
+                        case 'Space':
+                            e.preventDefault();
+                            this.togglePlayPause();
+                            break;
+                        case 'ArrowLeft':
+                            this.previousSeason();
+                            break;
+                        case 'ArrowRight':
+                            this.nextSeason();
+                            break;
+                    }
+                });
+            }
+            
+            // Change theme and season
+            changeSeason(season) {
+                if (season === this.currentSeason) return;
+                
+                this.isAutoProgressing = false;
+                this.pause();
+                
+                // Show modal for non-summer seasons (only once per session)
+                if (season !== 'summer' && !this.hasShownSeasonInfo) {
+                    this.seasonInfoModal.style.display = 'flex';
+                    this.hasShownSeasonInfo = true;
+                }
+                
+                // Update UI with fade effect
+                document.body.classList.remove(`theme-${this.currentSeason}`);
+                document.body.classList.add(`theme-${season}`);
+
+                // Update desktop background
+                document.getElementsByClassName('main-container')[0].classList.remove(`theme-${this.currentSeason}`);
+                document.getElementsByClassName('main-container')[0].classList.add(`theme-${season}`);
+                
+                // Update active season button
+                document.querySelectorAll('.season-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (season === "winter"){
+                        btn.style.backdropFilter = 'blur(3px)';
+                    }
+                    else{
+                        btn.style.backdropFilter = 'blur(10px)';
+                    }
+                });
+                document.querySelector(`[data-season="${season}"]`).classList.add('active');
+                
+                // Update season index
+                this.currentSeasonIndex = this.seasons.indexOf(season);
+                this.currentSeason = season;
+                
+                // Load new audio and update buttons
+                this.loadSeason(season);
+                
+                // Auto play the new season's audio
+                this.isAutoProgressing = true;
+                
+                // Add fade effect to title
+                const titleSection = document.querySelector('.title-section');
+                titleSection.classList.add('fade-out');
+                setTimeout(() => {
+                    titleSection.classList.remove('fade-out');
+                    titleSection.classList.add('fade-in');
+                }, 750);
+            }
+            
+            // Load season audio and update button images
+            loadSeason(season) {
+                const audioPath = `audio/${season}.mp3`;
+                this.audio.src = audioPath;
+                
+                // Update button images based on season with smooth transition
+                const buttons = {
+                    prev: `img/buttons/${season}_prev.png`,
+                    play: `img/buttons/${season}_pause.png`,
+                    next: `img/buttons/${season}_next.png`
+                };
+                
+                // Add fade effect to buttons during theme change
+                const buttonImages = document.querySelectorAll('.control-btn img');
+                buttonImages.forEach(img => {
+                    img.style.opacity = '0.5';
+                    img.style.transition = 'opacity 0.3s ease';
+                });
+                
+                setTimeout(() => {
+                    Object.keys(buttons).forEach(button => {
+                        const img = document.getElementById(`${button}-icon`);
+                        if (img) {
+                            img.src = buttons[button];
+                            img.style.opacity = '1';
+                        }
+                    });
+                }, 150);
+            }
+            
+            // Play/pause functionality
+            togglePlayPause() {
+                if (this.isPlaying) {
+                    this.pause();
+                } else {
+                    this.play();
+                }
+            }
+            
+            // Attempt to play, with graceful fallback if autoplay is blocked
+            safePlay() {
+                this.isPlaying = true;
+                this.audio.play().catch(() => {
+                    // Show tap-to-start gate if browser blocked autoplay
+                    this.tapGate.style.display = 'flex';
+                });
+            }
+            
+            play() {
+                this.audio.play().then(() => {
+                    this.isPlaying = true;
+                    this.updatePlayButton(true);
+                    // Hide tap gate if it was showing
+                    this.tapGate.style.display = 'none';
+                }).catch(error => {
+                    console.error('Error playing audio:', error);
+                    // Show tap-to-start gate if browser blocked autoplay
+                    this.tapGate.style.display = 'flex';
+                });
+            }
+            
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                this.updatePlayButton(false);
+            }
+            
+            // Update play button icon based on current state
+            updatePlayButton(isPlaying) {
+                const playIcon = document.getElementById('play-icon');
+                const season = this.currentSeason;
+                
+                if (isPlaying) {
+                    playIcon.src = `img/buttons/${season}_pause.png`;
+                } else {
+                    playIcon.src = `img/buttons/${season}_play.png`;
+                }
+            }
+            
+            // Navigate to previous season
+            previousSeason() {
+                this.isAutoProgressing = false;
+                const prevIndex = this.currentSeasonIndex > 0 ? 
+                    this.currentSeasonIndex - 1 : 
+                    this.seasons.length - 1;
+                this.changeSeason(this.seasons[prevIndex]);
+            }
+            
+            // Navigate to next season
+            nextSeason() {
+                this.isAutoProgressing = false;
+                const nextIndex = this.currentSeasonIndex < this.seasons.length - 1 ? 
+                    this.currentSeasonIndex + 1 : 
+                    0;
+                this.changeSeason(this.seasons[nextIndex]);
+            }
+            
+            
+            // Update progress bar
+            updateProgress() {
+                if (this.audio.duration) {
+                    const progress = (this.audio.currentTime / this.audio.duration) * 100;
+                    document.getElementById('progress-fill').style.width = `${progress}%`;
+                    document.getElementById('progress-handle').style.left = `${progress}%`;
+                    this.updateTimeDisplay();
+                }
+            }
+            
+            // Update time display
+            updateTimeDisplay() {
+                const currentTime = this.formatTime(this.audio.currentTime || 0);
+                const totalTime = this.formatTime(this.audio.duration || 0);
+                
+                document.getElementById('current-time').textContent = currentTime;
+                document.getElementById('total-time').textContent = totalTime;
+            }
+            
+            // Format time in MM:SS format
+            formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+            
+            // Seek to position on progress bar click
+            seekTo(event) {
+                const progressBar = document.getElementById('progress-bar');
+                const rect = progressBar.getBoundingClientRect();
+                const clickX = event.clientX - rect.left;
+                const percentage = clickX / rect.width;
+                
+                if (this.audio.duration) {
+                    this.audio.currentTime = this.audio.duration * percentage;
+                }
+            }
+            
+            // Handle track end - no auto progression
+            handleTrackEnd() {
+                // Stop auto-progression - user must manually change seasons
+                this.isAutoProgressing = false;
+                this.pause();
+            }
+            
+            // Auto progress to next season
+            nextSeasonAuto() {
+                if (this.currentSeasonIndex < this.seasons.length - 1) {
+                    this.currentSeasonIndex++;
+                    this.changeSeason(this.seasons[this.currentSeasonIndex]);
+                } else {
+                    // Finished all seasons, pause
+                    this.isAutoProgressing = false;
+                    this.pause();
+                }
+            }
+            
+            // Start auto play on page load
+            startAutoPlay() {
+                setTimeout(() => {
+                    this.isAutoProgressing = true;
+                    this.safePlay();
+                }, 1000);
+            }
+        }
+        
+        // Initialize player when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.soundscapePlayer = new TemporalSoundscapePlayer();
+        });
+    </script>
+</body>
+</html>
