@@ -122,12 +122,25 @@
         }
 
         .gray-background {
+            /* stops that morph with height */
+            --top-stop: clamp(
+                10%,                      /* min on small devices */
+                calc(9% + 0.6dvh),        /* fluid middle (grows with height) */
+                12%                       /* max on large screens */
+            );
+
+            --bottom-stop: clamp(
+                72%,                      /* min on small devices */
+                calc(58% + 3.8dvh),       /* fluid middle (grows with height) */
+                95%                       /* max on large screens */
+            );
+
             background: linear-gradient(
                 to bottom,
-                transparent 12%,          /* fully transparent until 20% */
-                rgba(191, 191, 191, 0.3) 12%,      /* start gray exactly at 20% */
-                rgba(191, 191, 191, 0.3) 95%,      /* keep gray until 95% */
-                transparent 95%           /* fade out at bottom 5% */
+                transparent var(--top-stop),
+                rgba(191,191,191,.3) var(--top-stop),
+                rgba(191,191,191,.3) var(--bottom-stop),
+                transparent var(--bottom-stop)
             );
             height: 100%;
         }
@@ -344,6 +357,16 @@
                 transition: all 0.3s ease;
                 box-shadow: 0 6px 15px rgba(0,0,0,0.2);
                 backdrop-filter: blur(10px);
+            }
+
+            .gray-background {
+                background: linear-gradient(
+                    to bottom,
+                    transparent 12%,          /* fully transparent until 20% */
+                    rgba(191, 191, 191, 0.3) 12%,      /* start gray exactly at 20% */
+                    rgba(191, 191, 191, 0.3) 95%,      /* keep gray until 95% */
+                    transparent 95%           /* fade out at bottom 5% */
+                );
             }
         }       
         
