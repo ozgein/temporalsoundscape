@@ -13,8 +13,8 @@
         /* Bookman Old Style family */
         @font-face {
             font-family: 'BookmanOldStyle';
-            src: url('/fonts/bookos-regular.woff2') format('woff2'),
-                url('/fonts/bookos-regular.woff') format('woff');
+            src: url('fonts/bookos-regular.woff2') format('woff2'),
+                url('fonts/bookos-regular.woff') format('woff');
             font-weight: 400;
             font-style: normal;
             font-display: swap;
@@ -22,8 +22,8 @@
 
         @font-face {
             font-family: 'BookmanOldStyle';
-            src: url('/fonts/bookos-italic.woff2') format('woff2'),
-                url('/fonts/bookos-italic.woff') format('woff');
+            src: url('fonts/bookos-italic.woff2') format('woff2'),
+                url('fonts/bookos-italic.woff') format('woff');
             font-weight: 400;
             font-style: italic;
             font-display: swap;
@@ -31,8 +31,8 @@
 
         @font-face {
             font-family: 'BookmanOldStyle';
-            src: url('/fonts/bookos-bold.woff2') format('woff2'),
-                url('/fonts/bookos-bold.woff') format('woff');
+            src: url('fonts/bookos-bold.woff2') format('woff2'),
+                url('fonts/bookos-bold.woff') format('woff');
             font-weight: 700;
             font-style: normal;
             font-display: swap;
@@ -40,8 +40,8 @@
 
         @font-face {
             font-family: 'BookmanOldStyle';
-            src: url('/fonts/bookos-bolditalic.woff2') format('woff2'),
-                url('/fonts/bookos-bolditalic.woff') format('woff');
+            src: url('fonts/bookos-bolditalic.woff2') format('woff2'),
+                url('fonts/bookos-bolditalic.woff') format('woff');
             font-weight: 700;
             font-style: italic;
             font-display: swap;
@@ -143,6 +143,13 @@
                 transparent var(--bottom-stop)
             );
             height: 100%;
+        }
+
+        .info-btn {
+            width: 16px;
+            height: 16px;
+            opacity: 0.5;
+            cursor: pointer;
         }
 
         .main-title,
@@ -400,7 +407,7 @@
         .tap-card { background: #fff; padding: 18px 22px; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
         
         /* Season info modal */
-        .season-info-modal {
+        .season-info-modal, .project-info-modal {
             position: fixed; inset: 0; z-index: 10;
             display: none;
             align-items: center; justify-content: center;
@@ -452,7 +459,7 @@
         <!-- Title Section -->
         <div class="title-section fade-in">
             <div class="gray-background">
-                <h1 class="main-title">Temporal<br>Soundscape:</h1>
+                <h1 class="main-title">Temporal<br>Soundscape<img class="info-btn" id="infoBtn" src="img/buttons/info.png"></h1>
                 <p class="subtitle">Clausthal in Four Seasons</p>
             </div>
         </div>
@@ -513,7 +520,21 @@
                 At this stage, only the Summer season has an audio track.
                 The remaining seasons are visual mockups without sound.
             </div>
-            <button class="modal-btn" id="modalOkBtn">Got it!</button>
+            <button class="modal-btn">Got it!</button>
+        </div>
+    </div>
+
+    <!-- Project info modal -->
+    <div class="project-info-modal" id="projectInfoModal">
+        <div class="modal-card">
+            <div class="modal-title">Project Information</div>
+            <div class="modal-text">
+                Temporal Soundscape invites you to experience the memory of a city through sound.
+                Everyday sounds accumulated in public spaces over the course of four seasons are brought together, transforming urban memory into an acoustic map.
+                <br><br>
+                Here, you can experience the city’s memory through sound, so that the city becomes not only a place that is seen, but also one that is heard and remembered.
+            </div>
+            <button class="modal-btn">Continue to Experience!</button>
         </div>
     </div>
     
@@ -527,6 +548,7 @@
                 this.audio = document.getElementById('audio-player');
                 this.tapGate = document.getElementById('tapGate');
                 this.seasonInfoModal = document.getElementById('seasonInfoModal');
+                this.projectInfoModal = document.getElementById('projectInfoModal');
                 this.isPlaying = false;
                 this.isAutoProgressing = true;
                 this.hasShownSeasonInfo = false; // Boolean to track if modal was shown
@@ -593,9 +615,17 @@
                     this.play();
                 });
                 
-                // Season info modal
-                document.getElementById('modalOkBtn').addEventListener('click', () => {
-                    this.seasonInfoModal.style.display = 'none';
+                // Hide Season & Project info modal
+                document.querySelectorAll('.modal-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.seasonInfoModal.style.display = 'none'
+                        this.projectInfoModal.style.display = 'none'
+                    });
+                });
+                
+                // Show Project info modal
+                document.getElementById('infoBtn').addEventListener('click', () => {
+                    this.projectInfoModal.style.display = 'flex';
                 });
                 
                 // Keyboard controls
@@ -623,6 +653,12 @@
                 this.pause();
                 
                 // Show modal for non-summer seasons (only once per session)
+                if (season !== 'summer' && !this.hasShownSeasonInfo) {
+                    this.seasonInfoModal.style.display = 'flex';
+                    this.hasShownSeasonInfo = true;
+                }
+                
+                // Show modal for project info
                 if (season !== 'summer' && !this.hasShownSeasonInfo) {
                     this.seasonInfoModal.style.display = 'flex';
                     this.hasShownSeasonInfo = true;
