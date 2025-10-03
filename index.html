@@ -72,7 +72,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         
         /* Theme-specific background images */
@@ -109,8 +109,10 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: clamp(0rem, 0.5dvh, 2rem);
             transition: all 1.5s ease-in-out;
+            padding: 0 1rem;
+            justify-content: space-evenly;
         }
         
         /* Title Section */
@@ -138,14 +140,14 @@
         }
         
         .main-title {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 6dvh, 4rem);
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             transition: all 1.5s ease-in-out;
         }
         
         .subtitle {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 3dvh, 1.8rem);
             color: #333;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
         }
@@ -171,18 +173,18 @@
         .season-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            padding: 0 2rem;
+            gap: clamp(1rem, 2dvh, 1.5rem);
+            padding: 0 clamp(2rem, calc(3rem - 1dvh), 3rem);
         }
         
         .season-btn {
+            font-size: clamp(1.1rem, 2.7dvh, 2.5rem);
             font-family: 'BookmanOldStyle', serif;
             font-weight: 700;
             font-style: italic;
             padding: 1rem;
             border: none;
             border-radius: 15px;
-            font-size: 2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 6px 15px rgba(0,0,0,0.2);
@@ -250,7 +252,7 @@
         
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: clamp(4px, 0.5dvh, 8px);
             background: rgba(0,0,0,0.2);
             border-radius: 4px;
             cursor: pointer;
@@ -268,8 +270,8 @@
         .progress-handle {
             position: absolute;
             top: 50%;
-            width: 16px;
-            height: 16px;
+            width: clamp(8px, 0.5dvh, 16px);
+            height: clamp(8px, 0.5dvh, 16px);
             background: #333;
             border-radius: 50%;
             transform: translate(-50%, -50%);
@@ -290,8 +292,8 @@
         }
         
         .control-btn {
-            width: 100px;
-            height: 100px;
+            width: clamp(60px, 2dvh, 100px);
+            height: clamp(60px, 2dvh, 100px);
             border: none;
             border-radius: 50%;
             background: transparent;
@@ -304,8 +306,8 @@
         }
         
         .control-btn img {
-            width: 80px;
-            height: 80px;
+            width: clamp(50px, 2dvh, 80px);
+            height: clamp(50px, 2dvh, 80px);
             transition: all 0.3s ease, opacity 0.3s ease;
         }
         
@@ -317,292 +319,33 @@
             font-size: 0.9rem;
             color: #666;
         }
-        
-        /* ========================================
-           RESPONSIVE MEDIA QUERIES
-           ======================================== */
-          /* Extra Small Devices (Phones) - Portrait */
-          @media (max-width: 429px) {
-            body {
-                align-items: unset;
-            }
-            .main-container {
-                gap: unset;
-                padding: 0 1rem;
-                display: flex;
-                justify-content: space-evenly;
-            }
-            .main-title {
-                font-size: 2.5rem;
-            }
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            .gray-background {
-            background: linear-gradient(
-                to bottom,
-                transparent 10%,          /* fully transparent until 20% */
-                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
-                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
-                transparent 72%           /* fade out at bottom 5% */
-            );
-            height: 100%;
-            }
-            .season-btn {   
-                font-size: 1.1rem;
-            }
-            .season-buttons {
-                gap: 1rem;
-                padding: 0 3rem;
-            }
-            .control-btn {
-                width: 60px;
-                height: 60px;
-            }
-            .control-btn img {
-                width: 50px;
-                height: 50px;
-            }
-            .progress-container {
-                margin-bottom: 2.5rem;
-            }
-            .player-section {
-                padding: 2rem 2rem 0 2rem;
-            }
-            .time-display {
-                margin-bottom: 0.5rem;
-            }
-            .progress-bar {
-                height: 4px;
-            }
-            .progress-handle {
-                height: 8px;
-                width: 8px;
-            }
-            /* Classes to make responsive:
-               .main-container - padding, gap, max-width
-               .main-title - font-size, line-height
-               .subtitle - font-size
-               .season-btn - padding, font-size
-               .season-buttons - gap, padding
-               .control-buttons - gap
-               .control-btn - width, height
-               .play-btn - width, height
-               .control-btn img - width, height
-               .play-btn img - width, height
-               .player-section - padding
-               .progress-container - margin-bottom
-               .time-display - font-size, margin-bottom
-            */
-        }
-           
 
-        /* Small Devices (Phones) - Portrait */
-        @media (min-width: 430px) and (max-width: 575px){
-            body {
-                align-items: unset;
-            }
+        @media (max-width: 499px) {
             .main-container {
-                gap: 1.5rem;
+                height: 100dvh;
             }
-            .main-title {
-                font-size: 3.5rem;
-            }
-            .subtitle {
-                font-size: 1.8rem;
-            }
-            .gray-background {
-            background: linear-gradient(
-                to bottom,
-                transparent 10%,          /* fully transparent until 20% */
-                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
-                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
-                transparent 72%           /* fade out at bottom 5% */
-            );
-            height: 100%;
-            }
-            .season-btn {   
-                font-size: 1.8rem;
-            }
-            .season-buttons {
-                gap: 1rem;
-                padding: 0 3rem;
-            }
-            .control-btn {
-                width: 100px;
-                height: 100px;
-            }
-            .control-btn img {
-                width: 80px;
-                height: 80px;
-            }
-            .progress-container {
-                margin-bottom: 2.5rem;
-            }
-            .player-section {
-                padding: 2rem 2rem 0 2rem;
-            }
-            /* Classes to make responsive:
-               .main-container - padding, gap, max-width
-               .main-title - font-size, line-height
-               .subtitle - font-size
-               .season-btn - padding, font-size
-               .season-buttons - gap, padding
-               .control-buttons - gap
-               .control-btn - width, height
-               .play-btn - width, height
-               .control-btn img - width, height
-               .play-btn img - width, height
-               .player-section - padding
-               .progress-container - margin-bottom
-               .time-display - font-size, margin-bottom
-            */
-        }
+        }  
         
-        
-        /* Medium Devices (MiniTablets) */
-        @media (min-width: 576px) and (max-width: 819px) {  
-            body {
-                align-items: unset;
-            }
+        @media (min-width: 500px) {
             .main-container {
-                gap: 1.5rem;
-            }
-            .main-title {
-                font-size: 4rem;
-            }
-            .subtitle {
-                font-size: 2rem;
-            }
-            .gray-background {
-            background: linear-gradient(
-                to bottom,
-                transparent 10%,          /* fully transparent until 20% */
-                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
-                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
-                transparent 72%           /* fade out at bottom 5% */
-            );
-            height: 100%;
-            }
-            .season-btn {   
-                font-size: 2rem;
-            }
-            .season-buttons {
-                padding: 0 5rem;
-            }
-            .control-btn {
-                width: 100px;
-                height: 100px;
-            }
-            .control-btn img {
-                width: 80x;
-                height: 80px;
-            }
-            .progress-container {
-                margin-bottom: 2.5rem;
-            }
-            .player-section {
-                padding: 2rem 3rem 0 3rem;
-            }
-
-        }
-
-        /* Medium Devices (Tablets) */
-        @media (min-width: 820px) and (max-width: 991px) {
-            body {
-                align-items: unset;
-            }
-            .main-container {
-                gap: unset;
-            }
-            .main-title {
-                font-size: 5rem;
-            }
-            .subtitle {
-                font-size: 2.5rem;
-            }
-            .gray-background {
-            background: linear-gradient(
-                to bottom,
-                transparent 10%,          /* fully transparent until 20% */
-                rgba(191, 191, 191, 0.3) 10%,      /* start gray exactly at 20% */
-                rgba(191, 191, 191, 0.3) 72%,      /* keep gray until 95% */
-                transparent 72%           /* fade out at bottom 5% */
-            );
-            height: 100%;
-            }
-            .season-btn {   
-                font-size: 2.5rem;
-            }
-            .season-buttons {
-                gap: 2.5rem;
-                padding: 0 6rem;
-            }
-            .control-btn {
-                width: 150px;
-                height: 150px;
-            }
-            .control-btn img {
-                width: 120px;
-                height: 120px;
-            }
-            .progress-container {
-                margin-bottom: 2.5rem;
-            }
-            .player-section {
-                padding: 2rem 4rem 0 4rem;
-            }
-            /* Classes to make responsive:
-               .main-container - padding, gap, max-width
-               .main-title - font-size
-               .subtitle - font-size
-               .season-btn - padding, font-size
-               .season-buttons - gap
-               .control-buttons - gap
-               .control-btn - width, height
-               .play-btn - width, height
-               .player-section - padding
-            */
-        }
-        
-        /* Large Devices (Laptops/1080p) */
-        @media (min-width: 992px) and (max-width: 1199px) {
-            .main-container {
-                max-width: 480px;
+                max-width: 400px;
                 box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
             }
-            /* Classes to make responsive:
-               .main-container - padding, gap, max-width
-               .main-title - font-size
-               .subtitle - font-size
-               .season-btn - padding, font-size
-               .season-buttons - gap
-               .control-buttons - gap
-               .control-btn - width, height
-               .play-btn - width, height
-               .player-section - padding
-            */
-        }
-        
-        /* Extra Large Devices (4K/Desktops) */
-        @media (min-width: 1200px) {
-            .main-container {
-                max-width: 480px;
-                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+            .season-btn {
+                font-size: clamp(1.4rem, 2dvh, 2rem);
+                font-family: 'BookmanOldStyle', serif;
+                font-weight: 700;
+                font-style: italic;
+                padding: 1rem;
+                border: none;
+                border-radius: 15px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+                backdrop-filter: blur(10px);
             }
-            /* Classes to make responsive:
-               .main-container - padding, gap, max-width
-               .main-title - font-size
-               .subtitle - font-size
-               .season-btn - padding, font-size
-               .season-buttons - gap
-               .control-buttons - gap
-               .control-btn - width, height
-               .play-btn - width, height
-               .player-section - padding
-            */
-        }
-        
+        }       
         
         /* Fade Animation Classes */
         .fade-in {
