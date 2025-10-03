@@ -146,10 +146,13 @@
         }
 
         .info-btn {
-            width: 16px;
-            height: 16px;
+            width: clamp(12px, 1.6dvh, 16px);
+            height: clamp(12px, 1.6dvh, 16px);
             opacity: 0.5;
             cursor: pointer;
+            position: relative;
+            top: 6px;
+            left: 6px;
         }
 
         .main-title,
